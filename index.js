@@ -57,7 +57,7 @@ let boardObject = new Board();
 
 function solveBtnAction(){
     boardObject.getHTMLGrid();
-    boardObject.matrix[0][2] = 100;
+    // solve logic
     boardObject.renderHTMLGrid();
 }
 function randomizeBtnAction(){
