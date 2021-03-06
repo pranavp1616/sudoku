@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sudoku</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+    <title>Sudoku 9x9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- My CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 
 <body>    
-    <div class="container">
-
-        <div class="row">
-            <div class="col">
-                Sudoku
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="container">
+                <h1 style="color: aliceblue;">Sudoku</h1>
             </div>
+          </div>
         </div>
-        <div class="row">
+    </nav>
+
+    <div style="padding-bottom: 50px;">
+    </div>
+
+    <div class="row">
+        <div class="container">
             <div id="htmlGrid"></div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="btn btn-success" onclick="solveBtnAction()">Solve</div>    
-                <div class="btn btn-primary" onclick="resetBtnAction()">Reset</div>
-                <div class="btn btn-primary" onclick="randomizeBtnAction()">Randomize</div>
-            </div>
+    </div>
+
+    <div style="padding-bottom: 50px;">
+    </div>
+
+    <div class="row">
+        <div class="container">
+            <div class="btn btn-success" onclick="solveBtnAction()">Solve</div>    
+            <div class="btn btn-primary" onclick="resetBtnAction()">Reset</div>
+            <div class="btn btn-primary" onclick="randomizeBtnAction()">Randomize</div>
         </div>
     </div>
+
+    
 
 <script src="index.js"></script>
 </body>
