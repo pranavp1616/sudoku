@@ -6,6 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: fit-content;
 }
 
 .sudokuBox     { 
@@ -14,12 +15,6 @@ body {
     max-width: 50px;
 }
 
-
-
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-        margin-bottom: 0;
-        border-radius: 0;
-      }
-      
-      
+.btn-secondary {
+    margin: 5px;
+}
