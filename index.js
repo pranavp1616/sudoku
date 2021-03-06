@@ -30,11 +30,14 @@ class Board {
     }
 
     renderHTMLGrid() {  //  matrix to html grid
+        var num;
         var grid = "<div>";
         for(var i=0; i<this.ROWS; i++){
             for(var j=0; j<this.COLS; j++){
                 grid += "<input id=" +i+"-"+j+ " class='sudokuBox' ";
-                grid += " value="+this.matrix[i][j]+" ";
+                num = this.matrix[i][j];
+                if(num!=0)  grid += " value="+num+" ";
+                else        grid += " value='' ";
                 grid += "></input>";
             }
             grid += "<br>";
