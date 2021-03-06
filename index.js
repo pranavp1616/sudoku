@@ -10,8 +10,6 @@ class Board {
         this.resetBoard();
         this.renderHTMLGrid();
 
-        this.row = 0;
-        this.col = 0; // global variables for solving (for recursion) 
     }
     resetBoard(){
         for(var i=0; i<this.ROWS; i++)
@@ -49,65 +47,85 @@ class Board {
         document.getElementById('htmlGrid').innerHTML = grid;
     }
 
-    // solve algorithm
+    /*  ALGORITHM */
     solveSudoku(){
-        if(!this.findUnassignedLocation()) 
-            return true; // Sudoku is already solved
+        var emptySpot = this.nextEmptySpot();
+        var row = emptySpot[0];
+        var col = emptySpot[1];    
+        if(row==-1) // there are no more empty spots
+            return; // sudoku solved
+
         for(var num=1; num<=9; num++){
-            if(this.isSafe(num, this.row,this.col)){
-                this.matrix[this.row][this.col] = num;
-                if(this.solveSudoku() )
-                    return true;
-                this.matrix[this.row][this.col] = 0; // couldnot assign num, so reset backto 0
+            if(this.checkValue(row,col,num)){
+                this.matrix[row][col] = num;
+                this.solveSudoku();
             }
         }
+
+        emptySpot = this.nextEmptySpot();
+        if(emptySpot[0] != -1)
+            this.matrix[row][col] = 0; // we cannot set num, so set it back to 0
+        return;
+    }
+    
+    nextEmptySpot(){    // find next spot, to fill
+        for(var i=0; i<9; i++)
+            for(var j=0; j<9; j++)
+                if(this.matrix[i][j]==0)
+                    return [i,j];
+        return [-1,-1]; // sudoky is already solved
+    }
+
+    checkValue(row, col, num) {
+        if(this.checkThisRow(row, num) &&
+          this.checkThisColumn(col, num) &&
+          this.check3x3Box(row, col, num))
+                return true;        
         return false; 
     }
 
-    findUnassignedLocation(){
-        console.log(this.row + " " + this.col);
-        for(this.row=0; this.row<9; this.row++)
-            for(this.col=0; this.col<9;this.col++)
-                if(this.matrix[this.row][this.col]==0){
-                    return true;
-                }
-        return false;
-    }
-
-
-    isSafe(num) {
-        return          !this.UsedInRow(num)
-                    && !this.UsedInCol(num)
-                    && !this.UsedInBox(this.row-this.row%3,  this.col-this.col%3,  num)
-                    && this.matrix[this.row][this.col] == 0;
-    }
-
-    UsedInRow(num){
-        for(var col=0; col<9; col++)
-            if(this.matrix[this.row][col] == num)
-                return true;
-        return false;
-    }
-    
-    UsedInCol(num){
-        for(var row=0; row<9; row++)
-            if (this.matrix[row][this.col] == num)
-                return true;
-        return false;
+    checkThisRow(row,num){
+        for(var i=0; i<this.matrix[row].length; i++)
+            if(this.matrix[row][i] == num)
+                return false;
+        return true;
     }    
     
-    UsedInBox(boxStartRow,boxStartCol,num){
-        for(var row = 0; row < 3; row++)
-            for(var col = 0; col < 3; col++)
-                if (this.matrix[row + boxStartRow][col + boxStartCol] == num)
-                    return true;
-        return false;
+    checkThisColumn(col,num){
+        for(var i=0; i<this.matrix.length; i++) 
+            if(this.matrix[i][col] == num) 
+                return false;
+        return true;
     }
-    // end of solve algorithm
+    
+    check3x3Box(row,col,num){
+        var box_row_start = Math.floor(row/3)*3;
+        var box_col_start = Math.floor(col/3)*3;        
+        for(var i=0; i<3; i++)
+            for(var j=0; j<3; j++)
+                if(this.matrix[box_row_start + i][box_col_start + j] == num)
+                    return false;    
+        return true;
+    }
 
-}
+    /* END of ALGORITHM */
 
+    isValid(){
+        for(var i=0; i<this.ROWS; i++){
+            for(var j=0; j<this.COLS; j++){
+                //todo
+            }
+        }
+        return true;
+    }
+
+    randomizeMatrix(){
+        // todo
+    }
+};
 let boardObject = new Board();
+
+
 
 
 /* 
@@ -116,12 +134,22 @@ let boardObject = new Board();
 
 function solveBtnAction(){
     boardObject.getHTMLGrid();
-    var ret = boardObject.solveSudoku();
-    console.log("Final result " + ret);
+    
+    // first check whether sudoku is valid with given numbers (no repeating numbers in a row or col or box)
+    // if( boardObject.isValid() )
+        var ret = boardObject.solveSudoku();
+    //else
+        // alert('sudoku not valid);
+
+    console.log("solved");
     boardObject.renderHTMLGrid();
 }
 
 function resetBtnAction(){
     boardObject.resetBoard();
     boardObject.renderHTMLGrid();
+}
+
+function randomizeBtnAction() {
+    alert("todo");
 }
