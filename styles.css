@@ -1,0 +1,17 @@
+body {
+    background-color: white;
+}
+
+h1   {
+    color: blue;
+}
+
+table, th, td {
+    border: 1px solid lightblue;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 14px;
+}
+.empty      { background-color: white;}
