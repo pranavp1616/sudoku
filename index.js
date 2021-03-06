@@ -40,9 +40,17 @@ class Board {
                 if(num!=0)  grid += " value="+num+" ";
                 else        grid += " value='' ";
                 grid += "></input>";
+
+                if((j+1)%3==0)
+                    grid += "&nbsp &nbsp &nbsp";
+
             }
-            grid += "<br>";
+            grid += "<br/>";
+            if((i+1)%3==0)
+                grid += "<br/>";
         }
+
+
         grid += "</div>";
         document.getElementById('htmlGrid').innerHTML = grid;
     }
