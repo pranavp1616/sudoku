@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Path Finding Visualizer</title>
+    <title>Sudoku</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -19,18 +19,17 @@
 <body>    
     <div class="row">
         <div class="col">
-            Path Finding Visualizer
+            Sudoku
         </div>
-        Set source and destination 
-        and click "Visualize"
     </div>
     <div class="row">
         <div id="htmlGrid"></div>
     </div>
     <div class="row">
         <div class="col">
-            <div class="btn btn-success" onclick="visualizeBtnAction()">VISUALIZE</div>
-            <div class="btn btn-primary" onclick="resetBtnAction()">reset</div>    
+            <div class="btn btn-success" onclick="solveBtnAction()">Solve</div>    
+            <div class="btn btn-primary" onclick="randomizeBtnAction()">Randomize</div>
+            <div class="btn btn-primary" onclick="resetBtnAction()">Reset</div>
         </div>
     </div>
 

@@ -6,12 +6,8 @@ h1   {
     color: blue;
 }
 
-table, th, td {
-    border: 1px solid lightblue;
+.sudokuBox     { 
     border-collapse: collapse;
+    border: 2px solid lightblue;
+    max-width: 50px;
 }
-
-th, td{
-    padding: 14px;
-}
-.empty      { background-color: white;}

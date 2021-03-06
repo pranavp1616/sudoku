@@ -1,6 +1,3 @@
-// grid value types - Change to enum later
-const EMPTY  = 0;
-
 class Board {
     constructor() {
         this.ROWS = 9;
@@ -16,38 +13,33 @@ class Board {
     resetBoard(){
         for(var i=0; i<this.ROWS; i++)
             for(var j=0; j<this.COLS; j++)
-                this.matrix[i][j] = EMPTY;
+                this.matrix[i][j] = 0;
     }
   
     getHTMLGrid(){  //  html grid to matrix
         for(var i=0; i<this.ROWS; i++){
             for(var j=0; j<this.COLS; j++){
-                var nodeType = document.getElementById(i+"-"+j).className;
-                if      (nodeType=="empty")
-                    this.matrix[i][j] = EMPTY;
-                else if (nodeType=="wall")
-                    this.matrix[i][j] = WALL;
+                var num =  document.getElementById(i+"-"+j).value;
+                num = parseInt(num);
+                if(1 <=num && num <=9)
+                    this.matrix[i][j] = num;
+                else 
+                    this.matrix[i][j] = 0;
             }
         }
     }
 
     renderHTMLGrid() {  //  matrix to html grid
-        var grid = "<table>";
-        var nodeType;
+        var grid = "<div>";
         for(var i=0; i<this.ROWS; i++){
-            grid += "<tr>";
             for(var j=0; j<this.COLS; j++){
-                grid += "<td id=" +i+"-"+j+" class='"; 
-                if      (this.matrix[i][j]==EMPTY)
-                    nodeType = "empty"; 
-                else if (this.matrix[i][j]==WALL)
-                    nodeType = "wall";
-                grid +=  nodeType;
-                grid +=  "' onclick='setPoint(id)'> </td>";
+                grid += "<input id=" +i+"-"+j+ " class='sudokuBox' ";
+                grid += " value="+this.matrix[i][j]+" ";
+                grid += "></input>";
             }
-            grid += "</tr>";
+            grid += "<br>";
         }
-        grid += "</table>";
+        grid += "</div>";
         document.getElementById('htmlGrid').innerHTML = grid;
     }
 
@@ -60,7 +52,15 @@ let boardObject = new Board();
         html DOM actions (button and click)
 */
 
-function resetBtnAction(){
-    boardObject.resetBoard();
+function solveBtnAction(){
+    alert('test');
+    boardObject.getHTMLGrid();
+    boardObject.matrix[0][2] = 100;
     boardObject.renderHTMLGrid();
+}
+function randomizeBtnAction(){
+    alert('test');
+}
+function resetBtnAction(){
+    alert('test');
 }
