@@ -53,14 +53,14 @@ let boardObject = new Board();
 */
 
 function solveBtnAction(){
-    alert('test');
     boardObject.getHTMLGrid();
     boardObject.matrix[0][2] = 100;
     boardObject.renderHTMLGrid();
 }
 function randomizeBtnAction(){
-    alert('test');
+    alert('Todo');
 }
 function resetBtnAction(){
-    alert('test');
+    boardObject.resetBoard();
+    boardObject.renderHTMLGrid();
 }
