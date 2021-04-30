@@ -5,19 +5,17 @@ class Board {
         this.matrix = new Array(this.ROWS);
         for(var i=0;i<this.ROWS;i++) 
             this.matrix[i] = new Array(this.COLS);
-        
-        // init 
-        this.resetBoard();
+        this.resetBoard();                  // init 
         this.renderHTMLGrid();
-
     }
+
     resetBoard(){
         for(var i=0; i<this.ROWS; i++)
             for(var j=0; j<this.COLS; j++)
                 this.matrix[i][j] = 0;
     }
   
-    getHTMLGrid(){  //  html grid to matrix
+    getHTMLGrid(){                          //  html grid to matrix
         for(var i=0; i<this.ROWS; i++){
             for(var j=0; j<this.COLS; j++){
                 var num =  document.getElementById(i+"-"+j).value;
@@ -30,7 +28,7 @@ class Board {
         }
     }
 
-    renderHTMLGrid() {  //  matrix to html grid
+    renderHTMLGrid() {                      //  matrix to html grid
         var num;
         var grid = "<div>";
         for(var i=0; i<this.ROWS; i++){
@@ -40,7 +38,6 @@ class Board {
                 if(num!=0)  grid += " value="+num+" ";
                 else        grid += " value='' ";
                 grid += "></input>";
-
                 if((j+1)%3==0)
                     grid += "&nbsp &nbsp &nbsp";
 
@@ -49,8 +46,6 @@ class Board {
             if((i+1)%3==0)
                 grid += "<br/>";
         }
-
-
         grid += "</div>";
         document.getElementById('htmlGrid').innerHTML = grid;
     }
@@ -62,14 +57,12 @@ class Board {
         var col = emptySpot[1];    
         if(row==-1) // there are no more empty spots
             return; // sudoku solved
-
         for(var num=1; num<=9; num++){
             if(this.checkValue(row,col,num)){
                 this.matrix[row][col] = num;
                 this.solveSudoku();
             }
         }
-
         emptySpot = this.nextEmptySpot();
         if(emptySpot[0] != -1)
             this.matrix[row][col] = 0; // we cannot set num, so set it back to 0
@@ -115,16 +108,14 @@ class Board {
                     return false;    
         return true;
     }
-
     /* END of ALGORITHM */
 
 
-    /* Valid check algorithm */
+    /* Valid Check algorithm */
     isValid(){ 
-        return ( 
-                this.isAllRowsValid() && 
-                this.isAllColsValid() &&
-                this.isAllBoxValid() );
+        return ( this.isAllRowsValid() && 
+                 this.isAllColsValid() &&
+                 this.isAllBoxValid()   );
     }
 
     isAllRowsValid(){
@@ -152,21 +143,17 @@ class Board {
     isAllBoxValid(){
         var mp = new Array(this.ROWS+1);            // 10 elements including 0..9
         for(var i=0; i<mp.length; i++)  mp[i] = 0;  // init mp
-
         for(var box_row_start=0; box_row_start<3; box_row_start++){
             for(var box_col_start=0; box_col_start<3; box_col_start++){
-
                 for(var i=0; i<3; i++)
                     for(var j=0; j<3; j++)
                         mp[ this.matrix[box_row_start*3 + i][box_col_start*3 + j] ] += 1;   // add to map
-                
                 for(var i=1; i<mp.length; i++)  if(mp[i]>1) return false;       // check duplicates in mp (except 0) 
                 for(var i=0; i<mp.length; i++)  mp[i] = 0;                      // reset mp
             }
         }
         return true;
     }
-
     /* END of Valid check algorithm */
 
     randomizeMatrix(){
@@ -176,18 +163,15 @@ class Board {
 let boardObject = new Board();
 
 
-
-
 /* 
         html DOM actions (button and click)
 */
-
 function solveBtnAction(){
     boardObject.getHTMLGrid();   
     if( boardObject.isValid() == true)
         boardObject.solveSudoku();
     else
-        alert('sudoku not valid');
+        alert('NOT a valid Sudoku !!!');
     boardObject.renderHTMLGrid();
 }
 
