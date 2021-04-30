@@ -156,8 +156,24 @@ class Board {
     }
     /* END of Valid check algorithm */
 
-    randomizeMatrix(){
-        // todo
+    randomizeMatrix(){ 
+        var rand_pos1, rand_pos2;
+        var rnum1 = (1+ Math.floor(Math.random()*10) ) %10;
+        var rnum2 = (1+ Math.floor(Math.random()*10) ) %10;
+        if(rnum1 == rnum2)
+            rnum2 = (rnum2+1)%10;
+        
+        // Set random values on first and second position - which will start a new matrix 
+        this.matrix[0][0] = rnum1;
+        this.matrix[0][1] = rnum2;
+        this.solveSudoku(); // This ensures we have a solvable (aka valid) matrix
+
+        for(var i=0; i<this.ROWS; i++){                 // DELETE 2 random positions in each row
+            rand_pos1 = (1+ Math.floor(Math.random()*10) ) %10; // random number in range [0,9]
+            rand_pos2 = (1+ Math.floor(Math.random()*10) ) %10; // random number in range [0,9]    
+            this.matrix[i][rand_pos1] = 0;
+            this.matrix[i][rand_pos2] = 0;
+        }
     }
 };
 let boardObject = new Board();
@@ -181,5 +197,7 @@ function resetBtnAction(){
 }
 
 function randomizeBtnAction() {
-    alert("todo");
+    boardObject.resetBoard();
+    boardObject.randomizeMatrix();
+    boardObject.renderHTMLGrid();
 }
