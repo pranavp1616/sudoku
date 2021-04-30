@@ -118,14 +118,56 @@ class Board {
 
     /* END of ALGORITHM */
 
-    isValid(){
+
+    /* Valid check algorithm */
+    isValid(){ 
+        return ( 
+                this.isAllRowsValid() && 
+                this.isAllColsValid() &&
+                this.isAllBoxValid() );
+    }
+
+    isAllRowsValid(){
+        var mp = new Array(this.ROWS+1);            // 10 elements including 0..9
+        for(var j=0; j<mp.length; j++)  mp[j] = 0;  // init mp
         for(var i=0; i<this.ROWS; i++){
-            for(var j=0; j<this.COLS; j++){
-                //todo
+            for(var j=0; j<this.COLS; j++)  mp[ this.matrix[i][j] ] += 1;    // map current (ith) row 
+            for(var j=1; j<mp.length; j++)  if(mp[j]>1) return false;       // check duplicates in mp (except 0) 
+            for(var j=0; j<mp.length; j++)  mp[j] = 0;                      // reset mp
+        }
+        return true;
+    }
+
+    isAllColsValid(){
+        var mp = new Array(this.COLS+1);            // 10 elements including 0..9
+        for(var i=0; i<mp.length; i++)  mp[i] = 0;  // init mp
+        for(var j=0; j<this.COLS; j++){
+            for(var i=0; i<this.ROWS; i++)  mp[ this.matrix[i][j] ] += 1;    // map current (ith) col 
+            for(var i=1; i<mp.length; i++)  if(mp[i]>1) return false;       // check duplicates in mp (except 0) 
+            for(var i=0; i<mp.length; i++)  mp[i] = 0;                      // reset mp
+        }
+        return true;
+    }
+
+    isAllBoxValid(){
+        var mp = new Array(this.ROWS+1);            // 10 elements including 0..9
+        for(var i=0; i<mp.length; i++)  mp[i] = 0;  // init mp
+
+        for(var box_row_start=0; box_row_start<3; box_row_start++){
+            for(var box_col_start=0; box_col_start<3; box_col_start++){
+
+                for(var i=0; i<3; i++)
+                    for(var j=0; j<3; j++)
+                        mp[ this.matrix[box_row_start*3 + i][box_col_start*3 + j] ] += 1;   // add to map
+                
+                for(var i=1; i<mp.length; i++)  if(mp[i]>1) return false;       // check duplicates in mp (except 0) 
+                for(var i=0; i<mp.length; i++)  mp[i] = 0;                      // reset mp
             }
         }
         return true;
     }
+
+    /* END of Valid check algorithm */
 
     randomizeMatrix(){
         // todo
@@ -141,15 +183,11 @@ let boardObject = new Board();
 */
 
 function solveBtnAction(){
-    boardObject.getHTMLGrid();
-    
-    // first check whether sudoku is valid with given numbers (no repeating numbers in a row or col or box)
-    // if( boardObject.isValid() )
-        var ret = boardObject.solveSudoku();
-    //else
-        // alert('sudoku not valid);
-
-    console.log("solved");
+    boardObject.getHTMLGrid();   
+    if( boardObject.isValid() == true)
+        boardObject.solveSudoku();
+    else
+        alert('sudoku not valid');
     boardObject.renderHTMLGrid();
 }
 
